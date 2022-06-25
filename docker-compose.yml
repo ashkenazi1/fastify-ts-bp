@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  fastify_ts:
+    container_name: fastify_ts
+    build: .
+    environment:
+      - NODE_ENV=prod
+    volumes:
+      - ./src:/app/src
+    depends_on:
+      - mongodb
+    ports:
+      - '1337:1337'
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    volumes:
+      - ./data/monogo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    expose:
+      - '27017'
+
